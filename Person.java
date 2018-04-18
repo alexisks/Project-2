@@ -41,6 +41,15 @@ public class Person
       return ID; 
    }
    
+   
+   /*************************************************************/
+/*Method: eligible                                              */
+/*Purpose: Find all if a person is eligible to donate blood     */
+/*Parameters:                                                   */
+/*            : String                                          */
+/*      Return: boolean                                         */   
+/****************************************************************/
+
    public boolean eligible(Donation item)
    {
    

@@ -64,7 +64,12 @@ public class LinkedList
          {
             Person spliceCurrent = (Person) current.getDatum(); 
             
-            if(previous == null && spliceItem.getLastName().compareTo(spliceCurrent.getLastName()) < 0)
+            if(spliceCurrent.getPersonID().equals(spliceItem.getPersonID()))
+            {
+               System.out.println("This user ID already exists."); 
+               return;  
+            }
+            else if(previous == null && spliceItem.getLastName().compareTo(spliceCurrent.getLastName()) < 0)
             {
                item.setNext(current); 
                head = item;

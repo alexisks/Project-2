@@ -29,6 +29,15 @@ public class Donation
    {
       return date; 
    }
+   
+   /*************************************************************/
+/*Method: equalTo                                               */
+/*Purpose: Checks to see if dates are the same                  */
+/*Parameters:                                                   */
+/*            : Donation item                                   */
+/*      Return: boolean                                        */
+/*************************************************************/
+
    public boolean equalTo(Donation item)
    {
       if(this.date.compareTo(item.getDate()) == 0)

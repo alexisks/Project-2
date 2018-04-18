@@ -29,18 +29,31 @@ public class Database
    public Person[] searchBloodType(String bloodType) 
    {//search
       int count = 0; 
-      Person[] bloodMatches = new Person[personList.size()]; 
       
-      for(int i=0; i < personList.size(); i++)
+      Node current = personList.head; 
+      while(current != null)
       {
-         Person temp = (Person)personList.get(i);
+         
+         Person temp = (Person) current.getDatum(); 
          String personBlood = temp.getBloodType();
-         if (personBlood.equals(bloodType))
+         if (personBlood.equals(bloodType));
+         count++; 
+         current.getNext(); 
+      }
+      Person[] bloodMatches = new Person[count]; 
+      count = 0;
+      current = personList.head; 
+      while(current != null)
+      {
+         Person temp = (Person) current.getDatum(); 
+         String personBlood = temp.getBloodType(); 
+         if (personBlood.equals(bloodType));
          {
             bloodMatches[count] = temp;
             count++;
-         }
+         } 
       }
+     
       return bloodMatches;
    }//search
 
@@ -54,23 +67,26 @@ public class Database
 /*      Return: Person[]                                    */
 /*************************************************************/
   
-   public Person[] searchID(String ID)
-   {
-      int count = 0; 
-      Person[] IdMatches = new Person[personList.size()]; 
-      
-      for(int i=0; i < personList.size(); i++)
+   public Node searchID(String ID)
+   {  
+      Node current = personList.head; 
+       
+      while(current != null)
       {
-         Person temp = (Person)personList.get(i);
-         String personID = temp.getPersonID();
-         if (personID.equals(ID))
+         Person IdMatches = (Person) current.getDatum();
+         if(IdMatches.getPersonID().equals(ID))
+         return current; 
+         
+         else 
          {
-            IdMatches[count] = temp;
-            count++;
-         }
+            current.getNext(); 
+         } 
+      
       }
-      return IdMatches;
-   }
+      System.out.print("No user with this ID"); 
+      throw new NullPointerException(); 
+      
+    }
   /*************************************************************/
 /*Method: eligible                                    */
 /*Purpose: Find all if a person is eligible to donate blood         */
@@ -95,16 +111,16 @@ public class Database
 /*Method: print                                              */
 /*Purpose: print the results of a program                    */
 /*Parameters:                                                */
-/*            : Person[]                                     */
+/*            : LinkedList                                  */
 /*      Return: Nothing. But will print necassary information*/
 /*************************************************************/
    
    public void print(LinkedList people)
-   {
+   {//start print
          Node current = people.head; 
          Person donorTest = (Person) current.getDatum(); 
          while(current != null)
-         {
+         {//while
             System.out.print((Person)current.getDatum()); 
             if(current.getDateNode() != null)
             {
@@ -113,7 +129,7 @@ public class Database
                //}
                 
                if(test.getDate() != LocalDate.MIN)
-               {
+               {//start if
                                     if(donorTest.eligible(test))
                   System.out.println("Eligible: yes.");
                   else
@@ -122,7 +138,7 @@ public class Database
                }
                else 
                   System.out.println("Never donated before.\n");
-            }
+            }// end if
             else
             {
                System.out.println("Last donation date: never");
@@ -131,31 +147,48 @@ public class Database
             }
             
             current = current.getNext(); 
-         }
+         }//end while
          
-         
-         // for(int i = 0; i < people.length; i++)
-//          {
-//             if(people[i] != null)
-//             {
-//                System.out.println(people[i]);
-//                System.out.print("Last donation date: ");
-//                if(current.getDateNode.getDatum()) != LocalDate.MIN)
-//                {
-//                   System.out.println(findDate(people[i].getPersonID()).toString());
-//                   if(eligible(people[i].getPersonID()))
-//                   System.out.println("Eligible: yes."); 
-//                   else 
-//                   System.out.println("Eligible: no.");
-//                   System.out.println("");
-//                   
-//                }
-//                else 
-//                System.out.println("Never donated before.\n");
-//             }
-//          }
       
+   }// end print
+
+
+/*************************************************************/
+/*Method: printDonations()                                    */
+/*Purpose: Prints the donor and all donations on file       */
+/*Parameters:                                                */
+/*            : Node                                         */
+/*      Return: void                                          */
+/*************************************************************/
+   public void printDonations(Node item)
+   {
+      Node current = item;
+      Person donorTest = (Person) current.getDatum(); 
+      //while(current != null)
+         //{//while
+            System.out.print(donorTest); 
+            if(current.getDateNode() != null)
+            {
+               Donation test = (Donation) current.getDateNode().getDatum(); 
+               System.out.println("Last donation dates: ");
+               while(current.getDateNode() != null)
+               {
+                  System.out.println(test.getDate()); 
+                  current = current.getDateNode(); 
+               }
+            }
+            else
+            System.out.println("No donation dates on file."); 
+         // }
+             
+                
+               
+            
+            
+
    }
+
+
 
 /*************************************************************/
 /*Method: dateFormat                                         */

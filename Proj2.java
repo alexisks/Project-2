@@ -183,7 +183,9 @@ public class Proj2
    System.out.print("Welcome to the CS-102 Blood Donor Database Program. \nToday's date is: "); 
    System.out.println(today);
    System.out.print("Current available commands:\n1 --> Print all donors\n2 --> Search for a donor"
-                       +"\n3 --> Search for a blood type\n9 --> Exit\nYour choice?");
+                       +"\n3 --> Search for a blood type \n4 --> Add new doner\n5 --> Add new Donation\n"
+                       +"9 --> Exit\nYour choice?"); 
+                       
    
    Scanner choiceScan = new Scanner(System.in);
    int choice = 0;
@@ -194,7 +196,7 @@ public class Proj2
          } 
          catch (InputMismatchException exc)
          {
-            System.out.println("Only use integers: 1,2,3, or 9.");
+            System.out.println("Only use integers: 1,2,3,4,5 or 9.");
          }
          choiceScan.nextLine(); 
       }
@@ -214,23 +216,27 @@ public class Proj2
       else if(choice == SEARCH_DONOR)//2
       {
          System.out.print("Donor ID number: "); 
-         Scanner scan = new Scanner(System.in);
-         String testID = scan.next();
-  //       Person[] matchID = new Person[data.personList.length];
-  //       matchID = data.searchID(testID); 
+        // Scanner scan2 = new Scanner(System.in);
+        // scan2.next(); 
+        // String testID = scan2.next();
+        String test = "8"; 
+         Node matchID = data.searchID(test); 
+           
          
-      //    if(matchID[0] != null)
-//          {
-//             data.print(matchID);
-//             System.out.println("All donation dates: ");
-//             data.print(data.getAllDonations(matchID[0].getPersonID()));
-//             System.out.println("");
-//             }
-//          else
-//          {
-//              System.out.println("No matches found for that ID");
+         data.printDonations(matchID);
+         
+          // if(matchID[0] != null)
+//           {
+//              data.print(matchID);
+//              System.out.println("All donation dates: ");
+//              data.print(data.getAllDonations(matchID[0].getPersonID()));
+//              System.out.println("");
+//              }
+//           else
+//           {
+//               System.out.println("No matches found for that ID");
 //          }
-//          
+          
          
       }
       else if(choice == SEARCH_BLOOD_TYPE)//3
@@ -238,11 +244,17 @@ public class Proj2
          System.out.print("Bloodtype: " ); 
          Scanner scan = new Scanner(System.in); 
          String testBlood = scan.next();
-     //    Person[] matchBlood = new Person[data.personList.length];
-     //    matchBlood = data.searchBloodType(testBlood); 
+         
+          
+         Person[] matchBlood = data.searchBloodType(testBlood);
+         
+         for(int i=0; matchBlood.length > 0; i++)
+         {
+            System.out.println(matchBlood[i]); 
+         }
          
      //    if(matchBlood[0] == null)
-         System.out.println("No matches found for that bloodtype.");
+     //    System.out.println("No matches found for that bloodtype.");
          
       //   data.print(matchBlood); 
          System.out.println("");
@@ -297,9 +309,9 @@ public class Proj2
          System.out.print("Please choose from the current available commands. \n\n");
       }
       
-      System.out.print("Current available commands:\n1 --> Print all donors\n2 --> "
-                     + "Search for a donor" + "\n3 --> Search for a blood type\n"
-                     + "9 --> Exit\nYour choice?"); 
+      System.out.print("Current available commands:\n1 --> Print all donors\n2 --> Search for a donor"
+                       +"\n3 --> Search for a blood type \n4 --> Add new doner\n5 --> Add new Donation\n"
+                       +"9 --> Exit\nYour choice?");
       do{
       choice = 0;
             try
@@ -308,7 +320,7 @@ public class Proj2
             } 
             catch (InputMismatchException exc)
             {
-               System.out.println("Only use integers: 1,2,3, or 9.");
+               System.out.println("Only use integers: 1,2,3,4,5 or 9.");
             }
             choiceScan.nextLine(); 
             }
