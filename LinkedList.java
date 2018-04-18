@@ -111,65 +111,72 @@ public class LinkedList
       Node current = head; 
       Node previous = null;
       Donation spliceItem = (Donation) item.getDatum(); 
+      boolean validDate = false; 
       
       
-      while(current != null)
-         {//while (current != null)
-            Person spliceCurrent = (Person) current.getDatum(); 
-            
-            if(spliceItem.getID().compareTo(spliceCurrent.getPersonID()) == 0)
-            { //if
-               Node patient = current; 
-               Node curDate = patient.getDateNode();
-               Node preDate = null;  
-
-               while(curDate != null)
-               {
-                  Donation spliceCurrentDate = (Donation) curDate.getDatum();
-                  Donation spliceItemComp = (Donation) item.getDatum(); 
-                  if(spliceItemComp.getDate().compareTo(spliceCurrentDate.getDate()) < 0)
+      
+         while(current != null)
+            {//while (current != null)
+               Person spliceCurrent = (Person) current.getDatum(); 
+               
+               if(spliceItem.getID().compareTo(spliceCurrent.getPersonID()) == 0)
+               { //if
+                  Node patient = current; 
+                  Node curDate = patient.getDateNode();
+                  Node preDate = null;  
+   
+                  while(curDate != null)
                   {
-                     if(preDate != null)
+                     Donation temp = (Donation) item.getDatum(); 
+                     Donation temp2 = (Donation) curDate.getDatum(); 
+                     validDate = temp.equalTo(temp2); 
+                     if(validDate == true)
+                        throw new Error(); 
+                     Donation spliceCurrentDate = (Donation) curDate.getDatum();
+                     Donation spliceItemComp = (Donation) item.getDatum(); 
+                     if(spliceItemComp.getDate().compareTo(spliceCurrentDate.getDate()) < 0)
                      {
-                        item.setNextDate(curDate); 
-                        preDate.setNextDate(item); 
-                        return; 
+                        if(preDate != null)
+                        {
+                           item.setNextDate(curDate); 
+                           preDate.setNextDate(item); 
+                           return; 
+                        }
+                        else 
+                        {
+                           item.setDateNode(curDate);
+                           patient.setNextDate(item);  
+                           return; 
+                        }
+                        
                      }
+                     
                      else 
                      {
-                        item.setDateNode(curDate);
-                        patient.setNextDate(item);  
-                        return; 
+                        preDate = curDate; 
+                        curDate = curDate.getDateNode();
                      }
                      
                   }
                   
+                  if(preDate == null)
+                  {
+                     patient.setDateNode(item); 
+                     return; 
+                  }
                   else 
                   {
-                     preDate = curDate; 
-                     curDate = curDate.getDateNode();
+                     preDate.setDateNode(item); 
+                     return; 
                   }
-                  
-               }
-               
-               if(preDate == null)
-               {
-                  patient.setDateNode(item); 
-                  return; 
-               }
-               else 
-               {
-                  preDate.setDateNode(item); 
-                  return; 
-               }
-                 
-            } //end if
-           
-           previous = current;  
-           current = current.getNext(); 
-                  
-         } //end while
-
+                    
+               } //end if
+              
+              previous = current;  
+              current = current.getNext(); 
+                     
+            } //end while
+         
    } //end addDonation
    
    public Object remove(int index)

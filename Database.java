@@ -79,17 +79,17 @@ public class Database
 /*      Return: boolean                                    */
 /*************************************************************/
 
-   public boolean eligible(String thisID)
-   {
-      LocalDate today = LocalDate.now();
-      LocalDate lastDate = findDate(thisID);
-      
-      lastDate = lastDate.plusDays(56); 
-      
-      return lastDate.isBefore(today);
-      
-       
-   }
+  //  public boolean eligible(Donation item)
+//    {
+//       LocalDate today = LocalDate.now();
+//       LocalDate lastDate = findDate(thisID);
+//       
+//       lastDate = lastDate.plusDays(56); 
+//       
+//       return lastDate.isBefore(today);
+//       
+//        
+//    }
    
 /*************************************************************/
 /*Method: print                                              */
@@ -99,29 +99,61 @@ public class Database
 /*      Return: Nothing. But will print necassary information*/
 /*************************************************************/
    
-   public void print(Person[] people)
+   public void print(LinkedList people)
    {
-
-         for(int i = 0; i < people.length; i++)
+         Node current = people.head; 
+         Person donorTest = (Person) current.getDatum(); 
+         while(current != null)
          {
-            if(people[i] != null)
+            System.out.print((Person)current.getDatum()); 
+            if(current.getDateNode() != null)
             {
-               System.out.println(people[i]);
-               System.out.print("Last donation date: ");
-               if(findDate(people[i].getPersonID()) != LocalDate.MIN)
+               Donation test = (Donation) current.getDateNode().getDatum(); 
+               System.out.println("Last donation date: " + test.getDate());
+               //}
+                
+               if(test.getDate() != LocalDate.MIN)
                {
-                  System.out.println(findDate(people[i].getPersonID()).toString());
-                  if(eligible(people[i].getPersonID()))
-                  System.out.println("Eligible: yes."); 
-                  else 
+                                    if(donorTest.eligible(test))
+                  System.out.println("Eligible: yes.");
+                  else
                   System.out.println("Eligible: no.");
                   System.out.println("");
-                  
                }
                else 
-               System.out.println("Never donated before.\n");
+                  System.out.println("Never donated before.\n");
             }
+            else
+            {
+               System.out.println("Last donation date: never");
+               System.out.println("Eligible: yes.");
+               System.out.println("");
+            }
+            
+            current = current.getNext(); 
          }
+         
+         
+         // for(int i = 0; i < people.length; i++)
+//          {
+//             if(people[i] != null)
+//             {
+//                System.out.println(people[i]);
+//                System.out.print("Last donation date: ");
+//                if(current.getDateNode.getDatum()) != LocalDate.MIN)
+//                {
+//                   System.out.println(findDate(people[i].getPersonID()).toString());
+//                   if(eligible(people[i].getPersonID()))
+//                   System.out.println("Eligible: yes."); 
+//                   else 
+//                   System.out.println("Eligible: no.");
+//                   System.out.println("");
+//                   
+//                }
+//                else 
+//                System.out.println("Never donated before.\n");
+//             }
+//          }
       
    }
 

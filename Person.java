@@ -5,7 +5,7 @@
 /* Programming Assignment 1                                 */
 /* Person Class: informatin about the people donating blood */
 /************************************************************/
-
+import java.time.LocalDate;
 public class Person
 { //Person Class
    private String firstName; 
@@ -41,11 +41,25 @@ public class Person
       return ID; 
    }
    
+   public boolean eligible(Donation item)
+   {
+   
+      LocalDate today = LocalDate.now();
+      LocalDate lastDate = item.getDate();
+      
+      lastDate = lastDate.plusDays(56); 
+      
+      return lastDate.isBefore(today);
+      
+       
+   }
+   
+   
    public String toString()
    {
       String str = ""; 
       str += firstName + " " + lastName + " " + "(" + ID + ")"; 
-      str += "\nBloodtype: " + bloodType; 
+      str += "\nBloodtype: " + bloodType + "\n"; 
       
       return str; 
    }

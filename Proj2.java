@@ -28,6 +28,8 @@ public class Proj2
       final int PRINT_ALL = 1; 
       final int SEARCH_DONOR = 2; 
       final int SEARCH_BLOOD_TYPE =3; 
+      final int ADD_NEW_DONOR = 4;
+      final int ADD_NEW_DONATION = 5; 
       final int EXIT = 9; 
       
       if (args.length != 2)
@@ -203,10 +205,10 @@ public class Proj2
    {//while interface
       if(choice == PRINT_ALL) //1
       {
- //        data.print(data.personList); 
+        data.print(data.personList); 
             
             
-            System.out.println("");
+        System.out.println("");
         
       }   
       else if(choice == SEARCH_DONOR)//2
@@ -244,6 +246,50 @@ public class Proj2
          
       //   data.print(matchBlood); 
          System.out.println("");
+         
+      }
+      else if (choice == ADD_NEW_DONOR) //4
+      {
+         Scanner scan4 = new Scanner(System.in);
+         System.out.println("Enter first name: "); 
+         String newFirst = scan4.next(); 
+         System.out.println("Enter last name: "); 
+         String newLast = scan4.next(); 
+         System.out.println("Enter bloodtype: "); 
+         String newBlood = scan4.next(); 
+         System.out.println("Enter ID number: "); 
+         String newID = scan4.next(); 
+         Person person2 = new Person(newID, newLast, newFirst, newBlood); 
+         Node temp = new Node();
+         temp.setDatum(person2); 
+         
+         data.personList.add(temp);
+         
+      }
+      else if (choice == ADD_NEW_DONATION) //5
+      {
+         Scanner scan5 = new Scanner(System.in);
+         System.out.println("Enter donor's ID: "); 
+         String newID2 = scan5.next(); 
+         System.out.println("Enter date in this format yyyymmdd: "); 
+         String newDate = scan5.next();
+         LocalDate test5; 
+         Donation donation2;
+         try
+         { 
+            test5 = data.dateFormat(newDate); 
+            donation2 = new Donation(newID2, test5);
+            Node temp = new Node();
+            temp.setDatum(donation2);
+            data.personList.addDonation(temp); 
+         } 
+         catch (InputMismatchException exc)
+         {
+            System.out.println("Not a proper date.");
+         }
+          
+         
+
          
       }
       else 

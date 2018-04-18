@@ -29,4 +29,12 @@ public class Donation
    {
       return date; 
    }
+   public boolean equalTo(Donation item)
+   {
+      if(this.date.compareTo(item.getDate()) == 0)
+      return true; 
+      
+      else 
+      return false; 
+   }
 } //end Donation class
